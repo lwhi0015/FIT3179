@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="https://cdn.jsdelivr.net/npm/vega@5.25.0"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-lite@5.15.0"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-embed@6.22.2"></script>
+</head>
+<body>
+  <div id="vis"/>
+  <script>
+    const spec = {
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "data": {
+    "url": "https://raw.githubusercontent.com/lwhi0015/FIT3179/main/WHR_2023.csv"
+  },
+  "selection": {
+    "region": {"type": "multi", "fields": ["region"], "bind": "legend"}
+  },
+  "mark": "circle",
+  "encoding": {
+    "x": {
+      "field": "gdp_per_capita",
+      "type": "quantitative",
+      "title": "GDP per Capita"
+    },
+    "y": {
+      "field": "happiness_score",
+      "type": "quantitative",
+      "title": "Happiness Score"
+    },
+    "color": {"field": "region", "type": "nominal", "title": "Region"},
+    "size": {
+      "field": "social_support",
+      "type": "quantitative",
+      "title": "Social Support"
+    },
+    "tooltip": [
+      {"field": "country", "type": "nominal", "title": "Country"},
+      {
+        "field": "happiness_score",
+        "type": "quantitative",
+        "title": "Happiness Score"
+      },
+      {
+        "field": "gdp_per_capita",
+        "type": "quantitative",
+        "title": "GDP per Capita"
+      },
+      {"field": "region", "type": "nominal", "title": "Region"}
+    ],
+    "opacity": {
+      "condition": {"selection": "region", "value": 0.8},
+      "value": 0.07
+    }
+  },
+  "config": {}
+};
+    vegaEmbed("#vis", spec, {mode: "vega-lite"}).then(console.log).catch(console.warn);
+  </script>
+</body>
+</html>
